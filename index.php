@@ -1,8 +1,5 @@
 <?php
-/**
- * 123
- * Created by PhpStorm.
- * User: пк
- * Date: 25.10.2017
- * Time: 21:18
- */
+
+include 'functions.php';
+$user = ['name' => 'donald'];
+echo render('main',['name' => $user['name']]);
