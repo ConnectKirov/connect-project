@@ -1,5 +1,5 @@
 <?php
     include '../function.php';
     $user = ['name' => 'Alex'];
-     echo render('main', $user);
+     echo render_with_layout('main', $user);
 
