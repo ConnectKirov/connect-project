@@ -20,3 +20,8 @@ function render() {
     // возвращаем содержимое буфера вывода
     return ob_get_clean();
 }
+
+function render_with_layout($name, $params, $title = 'Connect') {
+    $html = render($name, $params);
+    return render('layout', ['children' => $html, 'title' => $title]);
+}
