@@ -6,7 +6,7 @@
 </head>
 <body>
 <header class="header">
-    <a href="/" class="brand">CONNECT PROJECT</a>
+    <a href="/" class="brand">CONNECT</a>
 </header>
 <?=$children?>
 </body>
