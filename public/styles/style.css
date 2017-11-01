@@ -3,7 +3,9 @@ body {
     margin: 0;
     padding: 0;
 }
-
+img{
+    border-radius: 50%;
+}
 .header {
     height: 65px;
     background-color: #1e79fa;
@@ -12,7 +14,14 @@ body {
     display: flex;
     align-items: center;
 }
+.user .user_name{
+    line-height: 50px;
+    margin-left: 20px;
+}
 
+.user {
+    display: flex;
+}
 .braund {
     color: #fff;
     text-decoration: none;

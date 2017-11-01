@@ -8,7 +8,7 @@
      return ob_get_clean();
  }
 
- function render_with_layout(...$args){
-     $html=render(...$args);
-     return render('layout',['childeren'=>$html]);
+ function render_with_layout($name,$params,$title){
+     $html=render($name,$params);
+     return render('layout',['childeren'=>$html,'title'=>$title]);
  }
