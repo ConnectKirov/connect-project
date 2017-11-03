@@ -12,8 +12,10 @@ $app = new App();
 $template = new Template();
 $template->setLayout('main'); // layout = ../templates/layouts/main.php
 $app->setTemplating($template);
+
 $router = new Router();
 
+// все роуты, связанные с пользователями, кладем сюда
 include '../routes/users.php';
 
 $router->get('/contacts', function($params) use ($app) {
