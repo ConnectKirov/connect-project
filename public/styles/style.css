@@ -4,13 +4,25 @@ body {
     background-color: #eee;
 }
 
-* {
+{
     box-sizing: border-box;
 }
-
+.step {
+min-height:100vh;
+}
+.step.main{
+    background-image: url('/images/background.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+.step.main.back{
+    background-color: rgba(4,0,255,0.5);
+    height: 100vh;
+}
 .header {
     height: 64px;
-    background-color: #1E79FA;
+    /*background-color: #1E79FA;*/
     color: #fff;
     padding: 0 24px;
     display: flex;
