@@ -101,6 +101,10 @@ body {
     font-weight: 500;
 }
 
+a {
+    text-decoration: none;
+}
+
 .user {
     display: inline-flex;
     text-transform: capitalize;
@@ -111,6 +115,7 @@ body {
     align-items: center;
     margin: 6px;
     padding-right: 16px;
+    color: #212121;
 }
 
 .user-avatar {
