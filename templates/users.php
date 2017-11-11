@@ -7,7 +7,7 @@
  * @var $users User[]
  */
 foreach ($users as $user): ?>
-    <a href="/user?name=<?= $user->fistName ?>">
+    <a href="/user?name=<?= $user->firstName ?>">
         <div class="user">
             <img src="<?= $user->avatar ?>" class="user-avatar">
             <?= $user->fullName() ?>

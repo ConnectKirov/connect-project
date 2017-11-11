@@ -1,17 +1,17 @@
 <?php
 
 class User {
-    public $fistName;
+    public $firstName;
     public $lastName;
     public $avatar;
 
     public function __construct($firstName, $lastName, $avatar) {
-        $this->fistName = $firstName;
+        $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->avatar = $avatar;
     }
 
     public function fullName() {
-        return $this->fistName . ' ' . $this->lastName;
+        return $this->firstName . ' ' . $this->lastName;
     }
 }
