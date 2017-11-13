@@ -5,15 +5,19 @@
  * @return User[]
  */
 function fetch_users($count = 10) {
-    $resultsRaw = file_get_contents(__DIR__ . "/../data/users.json");
-    $results = json_decode($resultsRaw, true);
+    $mysqli = mysqli_connect("localhost", "root", "", "connect")
+        or die('Connection failure');
+
+    $query = mysqli_query($mysqli, 'SELECT * FROM `users`');
+    $users = mysqli_fetch_all($query, MYSQLI_ASSOC);
+
     $users = array_map(function ($user) {
         return new User(
-            $user['name']['first'],
-            $user['name']['last'],
-            $user['picture']['thumbnail']
+            $user['firstName'],
+            $user['lastName'],
+            $user['avatar']
         );
-    }, $results['results']);
+    }, $users);
 
     return $users;
 }
