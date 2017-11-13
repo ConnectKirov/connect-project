@@ -29,7 +29,7 @@ body {
 
 .header {
     height: 64px;
-    background-color: transparent;
+    background-color: #337CF2;
     color: #fff;
     padding: 0 24px;
     display: flex;
@@ -37,6 +37,10 @@ body {
     justify-content: space-between;
     flex-grow: 0;
     flex-shrink: 0;
+}
+
+.header--transparent {
+    background: transparent;
 }
 
 .step.main .back .content {

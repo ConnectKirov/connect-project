@@ -1,5 +1,4 @@
-<h1>Пользователи</h1>
-
+<?=$this->renderInclude('includes/header')?>
 <?php
 /**
  * Это поможет PHPSTORM'у понять, что такое $users

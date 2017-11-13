@@ -1,13 +1,14 @@
+<?php
+/**
+ * @var $this Template
+ */
+?>
+
 <div class="step main">
     <div class="back">
-        <header class="header">
-            <a href="/" class="brand">CONNECT</a>
-            <nav class="header-links">
-                <a href="/contacts">Расписание</a>
-                <a href="/users">Где мы</a>
-                <a href="/users">Участники</a>
-            </nav>
-        </header>
+        <?=$this->renderInclude('includes/header', [
+            'transparent' => true,
+        ])?>
             <div class="content">
                 <div class="centered">
                     <div class="row connect">
