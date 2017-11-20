@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $this Template
+ */
+?>
+<?=$this->renderInclude('includes/header');?>
 <div class="step time_line">
     <div class="time_header">
         <div class="date">17 ноября, пятница</div>
