@@ -25,3 +25,4 @@ $router->get('/contacts', function($params) use ($app) {
 $router->get('/', function($params) use ($app) {
     return $app->templating->renderWithLayout('index');
 });
+

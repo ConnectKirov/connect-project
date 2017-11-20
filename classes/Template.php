@@ -27,6 +27,9 @@ class Template {
         // возвращаем содержимое буфера вывода
         return ob_get_clean();
     }
+    private function renderincludes($name) {
+        return $this->render($this->getPath($name));
+    }
 
     private function getPath() {
         return __DIR__ . '/../templates/' . func_get_arg(0) . '.php';
@@ -36,4 +39,5 @@ class Template {
         $html = $this->render($this->getPath($name), $params);
         return $this->render($this->layout, ['children' => $html, 'title' => $title]);
     }
+
 }
