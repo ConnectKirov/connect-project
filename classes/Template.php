@@ -28,6 +28,10 @@ class Template {
         return ob_get_clean();
     }
 
+    private function renderInclude($name, $params = []) {
+        return $this->render($this->getPath($name), $params);
+    }
+
     private function getPath() {
         return __DIR__ . '/../templates/' . func_get_arg(0) . '.php';
     }
@@ -35,5 +39,22 @@ class Template {
     public function renderWithLayout($name, $params = [], $title = 'Connect') {
         $html = $this->render($this->getPath($name), $params);
         return $this->render($this->layout, ['children' => $html, 'title' => $title]);
+    }
+
+    public function cs(...$args) {
+        $classes = '';
+        foreach ($args as $arg) {
+            if (is_string($arg)) {
+                $classes .= $arg . ' ';
+            }
+            if (is_array($arg)) {
+                foreach ($arg as $key => $value) {
+                    if ($value) {
+                        $classes .= $key . ' ';
+                    }
+                }
+            }
+        }
+        return $classes;
     }
 }

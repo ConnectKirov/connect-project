@@ -18,10 +18,10 @@ $router = new Router();
 // все роуты, связанные с пользователями, кладем сюда
 include '../routes/users.php';
 
-$router->get('/contacts', function($params) use ($app) {
+$router->get('/contacts', function() use ($app) {
     return $app->templating->renderWithLayout('contacts');
 });
 
-$router->get('/', function($params) use ($app) {
+$router->get('/', function() use ($app) {
     return $app->templating->renderWithLayout('index');
 });
