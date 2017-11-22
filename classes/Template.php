@@ -41,6 +41,12 @@ class Template {
         return $this->render($this->layout, ['children' => $html, 'title' => $title]);
     }
 
+    /**
+     * Составление строки класса из переданного массива
+     *
+     * @param array ...$args
+     * @return string
+     */
     public function cs(...$args) {
         $classes = '';
         foreach ($args as $arg) {
@@ -49,7 +55,9 @@ class Template {
             }
             if (is_array($arg)) {
                 foreach ($arg as $key => $value) {
-                    if ($value) {
+                    if (is_numeric($key)) {
+                        $classes .= $value . ' ';
+                    } elseif ($value) {
                         $classes .= $key . ' ';
                     }
                 }

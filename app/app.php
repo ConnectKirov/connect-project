@@ -25,3 +25,10 @@ $router->get('/contacts', function() use ($app) {
 $router->get('/', function() use ($app) {
     return $app->templating->renderWithLayout('index');
 });
+
+
+
+$router->get('/schedule', function() use ($app) {
+    return $app->templating->renderWithLayout('schedule');
+});
+
