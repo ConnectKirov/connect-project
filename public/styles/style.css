@@ -15,7 +15,7 @@ body {
     min-height: 100vh;
 }
 .step.main{
-    background-image: url('/images/background.jpg');
+    background-image: url('/images/background1.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -191,17 +191,27 @@ body {
 .step.time_line .schedule {
     counter-reset: schetchik;
 }
+
+.step.time_line .schedule .number {
+    width: 40px;
+    text-align: center;
+}
+
 .step.time_line .schedule .row{
     counter-increment: schetchik;
+    display: inline-flex;
+    line-height: 55px;
 }
 .step.time_line .schedule .row .number:before{
     content: counter(schetchik);
 }
 .step.time_line .schedule .row .user{
-    background-color: white;
+    background-color: black;
     -webkit-border-radius: 40px;
     -moz-border-radius: 40px;
     border-radius: 40px;
+    color: white;
+    height: 40px;
 }
 .step.time_line .schedule .row .user .avatar{
     -webkit-border-radius: 100%;
@@ -209,6 +219,7 @@ body {
     border-radius: 100%;
     width: 40px;
     height: 40px;
+    margin-left: -1px;
 }
 
 .brand {

@@ -5,7 +5,7 @@
 ?>
 <div class="step main">
     <div class="back">
-        <?=$this->renderInclude('includes/header')?>
+        <?=$this->renderInclude('includes/header',['transparent'=>true])?>
         <div class="content">
             <div class="centered">
                 <div class="row connect">
@@ -21,3 +21,4 @@
         </div>
     </div>
 </div>
+<?=$this->renderInclude('schedule')?>
