@@ -38,4 +38,7 @@ class Router {
         // Вызываем обработчик, который соответствует текущему пути в массиве $this->routes
         echo call_user_func($this->routes[$this->path], $this->params);
     }
+    public static function getFile($url) {
+        return $url.'?'.filemtime($_SERVER['DOCUMENT_ROOT'].$url );
+    }
 }
