@@ -1,17 +1,16 @@
 <html>
 <head>
-    <link rel="stylesheet" href="styles/style.css">
+<<<<<<<<< Temporary merge branch 1
+    <link rel="stylesheet" href="<?= Router::getFile('/styles/style.css')?>">
+=========
+    <link rel="stylesheet" href="/plugins/fontawesome/css/font-awesome.css">
+    <link rel="stylesheet" href="styles/style.css?<?=time()?>">
+>>>>>>>>> Temporary merge branch 2
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700&amp;subset=cyrillic" rel="stylesheet">
     <title><?=$title?></title>
 </head>
 <body>
-<header class="header">
-    <a href="/" class="brand">CONNECT</a>
-    <nav class="header-links">
-        <a href="/contacts">Контакты</a>
-        <a href="/users">Пользователи</a>
-    </nav>
-</header>
+
 <?=$children?>
 </body>
 </html>
