@@ -1,10 +1,16 @@
 <header class="<?=$this->cs('header', [
         'header--transparent' => @$transparent,
 ])?>">
+    <div style="width: 100%;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;">
     <a href="/" class="brand">CONNECT</a>
     <nav class="header-links">
         <a href="/schedule">Расписание</a>
         <a href="https://yandex.ru/maps/-/CBajyMV5cD">Где мы</a>
-        <a href="/users">Участники</a>
+        <a href="/users">Вход</a>
     </nav>
+    </div>
 </header>

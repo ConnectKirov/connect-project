@@ -28,6 +28,8 @@ body {
     flex-direction: column;
 }
 .header {
+    position: absolute;
+    
     height: 64px;
     background-color: var(--primary-color);
     color: #fff;
@@ -175,20 +177,45 @@ body {
     padding-left: 20px;
 }
 .step.time_line .time_header .hours{
+
     display: flex;
-    margin-left:  40px;
+    padding-left:  40px;
+    justify-content: space-around;
     margin-top: 50px;
+    flex-direction: row;
+    float: right;
+    width: 100%;
+}
+
+.step.time_line .time_header .hour{
+    padding: 0 5px;
+}
+.step.time_line .schedule {
+    counter-reset: schetchik;
+    color: white;
+    float: left;
+    min-width: 100%;
+
+}
+
+.step.time_line .schedule .table{
+    display: flex;
+    padding-left:  40px;
+    justify-content: space-around;
     flex-direction: row;
     float: left;
     width: 100%;
     overflow-x: auto;
-}
-
-.step.time_line .time_header .hour{
 
 }
-.step.time_line .schedule {
-    counter-reset: schetchik;
+.step.time_line .schedule .table .hour_table{
+    min-width: 49.81px;
+    border-left: 1px solid black;
+    width: 100%;
+}
+.step.time_line .schedule .table .hour_mesto_table{
+    height: 40px;
+    border-bottom: 1px solid red;
 }
 
 .step.time_line .schedule .number {
@@ -196,12 +223,11 @@ body {
     height: 40px;
     text-align: center;
     float: left;
-    position: absolute;
-    left: 0;
 }
 
 .step.time_line .schedule .row{
     counter-increment: schetchik;
+    line-height: 40px;
    margin-top: 10px;
 }
 
@@ -220,18 +246,8 @@ body {
     border-radius: 40px;
     color: white;
     height: 40px;
-    min-width: 38px;
     float: left;
-    display: block;
     margin: 0;
-    overflow: hidden;
-}
-.step.time_line .schedule .row .user:before {
-    content: ' ';
-    display: block;
-    float: left;
-    width:40px;
-    height: 40px;
 }
 .step.time_line .schedule .row .user .avatar{
     -webkit-border-radius: 100%;
@@ -241,12 +257,6 @@ body {
     height: 40px;
     margin-left: -1px;
     margin-right: 10px;
-    position: absolute;
-    float:left;
-}
-.step.time_line .schedule .row .user .name {
-    float:left;
-    height: 40px;
 }
 
 .brand {
