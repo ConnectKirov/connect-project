@@ -39,7 +39,7 @@ $router->get('/schedule', function() use ($app) {
         ]];
     $timefrom = strtotime('12.11.2017 10:00:00');
     $timeto = strtotime('13.11.2017 01:00:00');
-    $counthours=($timeto-$timefrom)/3600;
+    $counthours=($timeto-$timefrom)/3600+1;
     return $app->templating->renderWithLayout('schedule',[
         'users' => $users,
         'timefrom' =>$timefrom,
