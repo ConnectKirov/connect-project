@@ -1,5 +1,5 @@
 <?php
 
 include 'functions.php';
-$user = ['name' => 'donald'];
+$user = ['name' => 'IVAN'];
 echo render('main',['name' => $user['name']]);
