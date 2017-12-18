@@ -12,3 +12,4 @@
      $html=render($name,$params);
      return render('layout',['childeren'=>$html,'title'=>$title]);
  }
+
