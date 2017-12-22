@@ -1,23 +1,31 @@
-$(function () {
-    $.post('/ajax',{
-        'date':'18.12.2017'
-    },function(r){
-        var a = jQuery.parseJSON(r);
-            $.each(a['users'],function (i,val) {
-                var $seconds = val['to'] - val['from'];
-                var $hours = $seconds / 3600;
-                var $width =  Math.round($hours / a['counthours'] * 10000)/100;
-                $seconds = val['from'] - a['timefrom'];
-                $hours = $seconds / 3600;
-                var $magin =  Math.round($hours / a['counthours']  * 10000)/100;
-                var user =
-                    '<div class="user" style="margin-left: '+$magin+'%;width:'+$width +'%;">'+
-                    '   <div class="avatar"'+
-                    '       style="background-image: url('+val['avatar']+')"></div>'+
-                    '   <div class="name">'+val['name']+' '+val['lastName']+'</div>'+
-                    '</div>';
-                $('.schedule .row').append(user);
-            });
+$.post('/ajax/schedule', {
+    'date': new Date()
+}).then((data) => {
+    data.records.forEach(function (record, i) {
+        let {schedule: {dateFrom, dateTo}, records} = data;
+        dateFrom = new Date(dateFrom);
+        dateTo = new Date(dateTo);
+        let total = dateTo - dateFrom;
 
+        let tpl = `
+            <div>
+                ${records.map(({user, timeStart, timeEnd}) => {
+                timeStart = new Date(timeStart);
+                timeEnd = new Date(timeEnd);
+                let start = timeStart - dateFrom;
+                let offset = Math.ceil(start * 100 / total);
+    
+    
+                return `
+                    <div class="schedule-user" style="margin-left: ${offset}%;">
+                        <img class="schedule-user__avatar" src="${user.avatar}" /> 
+                        <div class="schedule-user__name">${user.firstName} ${user.lastName}</div>
+                    </div>
+                `;
+                })}
+            </div>
+        `;
+
+        $('.schedule-table-row').html(tpl);
     });
 });

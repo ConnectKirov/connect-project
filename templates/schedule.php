@@ -4,42 +4,31 @@
  */
 ?>
 <?=$this->renderInclude('includes/header');?>
-<div class="step time_line">
-    <div class="table">
-        <?php
-        $width =  round(1 / $counthours * 100, 2);
-        $i = $timefrom;
-        while ($i<= $timeto) {?>
-            <div class="hour_table" style="width: <?=$width?>%;"></div>
-            <?php
-            $i+=3600;}
-        ?>
-        <div style="clear: both;"></div>
+<div class="schedule">
+    <div class="schedule-header">
+        <h2 class="schedule-header__title">
+            <?=$this->getLocaleDate($timefrom)?>
+        </h2>
+        <p class="schedule-header__subtitle">
+            <?=$this->getLocaleTimeAgo($timefrom)?>
+        </p>
     </div>
-    <div class="time_header">
 
-        <div class="date"><?=getmyDate($timefrom)?></div>
-        <div class="wdate"><?=getMyTitleDate($timefrom)?></div>
-        <div class="hours">
-            <?php
-            $width =  round(1 / $counthours * 100, 2);
-            $i = $timefrom;
-            while ($i<= $timeto) {
-                ?>
-                <div class="hour" style="width: <?=$width?>%;"> <?=date('H:i',$i)?></div>
-                <?php
-                $i+=3600;
-            }
-            ?>
+    <div class="schedule-table">
+        <div class="schedule-table__numbers">
+
         </div>
-        <div style="clear: both;"></div>
-    </div>
-    <div style="clear: both;"></div>
-
-    <div style="clear: both;"></div>
-    <div class="schedule">
-        <div class="row">
-            <div class="number"></div>
+        <div class="schedule-table__content">
+            <div class="schedule-table-columns">
+                <?php for ($i = $timefrom; $i<= $timeto; $i+=3600): ?>
+                    <div class="schedule-table-columns__column" style="width: <?=round(1 / $counthours * 100, 2)?>%;"> <?=date('H:i',$i)?></div>
+                <?php endfor; ?>
+            </div>
+            <div class="schedule-table__users">
+                <div class="schedule-table-row">
+                    <!-- insert users here -->
+                </div>
+            </div>
         </div>
     </div>
 </div>

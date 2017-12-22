@@ -4,6 +4,8 @@ class Router {
     private $routes;
     private $params;
     private $path;
+    private $req;
+    private $res;
 
     public function __construct() {
         // отсекаем параметры из адресной строки
@@ -11,6 +13,9 @@ class Router {
         $this->path = explode('?', $_SERVER['REQUEST_URI'])[0];
         $this->params = $_GET;
         $this->routes = [];
+        $this->req = new Request();
+        $this->req->params = $this->params;
+        $this->res = new Response();
     }
 
     /**
@@ -36,7 +41,7 @@ class Router {
      */
     public function __destruct() {
         // Вызываем обработчик, который соответствует текущему пути в массиве $this->routes
-        echo call_user_func($this->routes[$this->path], $this->params);
+        echo call_user_func($this->routes[$this->path], $this->req, $this->res);
     }
     public static function getFile($url) {
         return $url.'?'.filemtime($_SERVER['DOCUMENT_ROOT'].$url );
