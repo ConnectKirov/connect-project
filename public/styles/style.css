@@ -1,5 +1,8 @@
+@import "schedule.css";
+
 :root {
     --primary-color: #1E79FA;
+    --accent-color: #ffea00;
 }
 
 body {
@@ -7,9 +10,11 @@ body {
     margin: 0;
     background-color: #eee;
     padding-top: 64px;
+    display: flex;
+    flex-direction: column;
 }
 
-* {
+*, *::before, *::after {
     box-sizing: border-box;
 }
 .step{
@@ -167,7 +172,6 @@ body {
 }
 .step.time_line .time_header{
     color: white;
-    float: left;
     min-width: 100%;
     background-repeat: no-repeat;
     background-position: center center;
@@ -244,18 +248,11 @@ body {
    margin-top: 10px;
 }
 
-.step.time_line .schedule .row::after{
-    content: " ";
-    display: block;
-    clear: both;
-}
 .step.time_line .schedule .row .number:before{
     content: counter(schetchik);
 }
 .step.time_line .schedule .row .user{
     background-color: black;
-    -webkit-border-radius: 40px;
-    -moz-border-radius: 40px;
     border-radius: 40px;
     color: white;
     height: 40px;
@@ -263,17 +260,15 @@ body {
     margin: 0;
     padding: 0;
     text-align: left;
-    display: flex;
+    padding-right: 12px;
 }
 
 .step.time_line .schedule .row .user .name{
-    float: left;
-    display: flex;
-    align-content: center ;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .step.time_line .schedule .row .user .avatar{
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
     border-radius: 100%;
     width: 40px;
     height: 40px;

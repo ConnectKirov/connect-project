@@ -7,8 +7,8 @@ $router->get('/users', function () use ($app) {
     ]);
 });
 
-$router->get('/user', function ($params) use ($app) {
-    $users = fetch_users($params['name']);
+$router->get('/user', function (Request $req) use ($app) {
+    $users = fetch_users($req->params['name']);
 
     return $app->templating->renderWithLayout('users', [
         'users' => $users

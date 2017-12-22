@@ -1,0 +1,14 @@
+{
+  "name": "connect-project",
+  "homepage": "https://github.com/ConnectKirov/connect-project",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
