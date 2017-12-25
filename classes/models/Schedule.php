@@ -6,8 +6,8 @@
  *
  * @property int $id
  * @property User $user
- * @property string $dateStart
- * @property string $dateEnd
+ * @property DateTime $dateStart
+ * @property DateTime $dateEnd
  */
 class Schedule extends Model {
     public const tableName = 'schedule';

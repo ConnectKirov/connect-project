@@ -7,11 +7,29 @@ include_once "../classes/models/Schedule.php";
 
 try {
     $dbh = new PDO('mysql:host=localhost;dbname=connect', 'root', '');
-} catch (PDOException $e) {
-    print "Error!: " . $e->getMessage() . "<br/>";
+} catch (PDOException $error) {
+    print "DB error: " . $error->getMessage() . "<br/>";
     die();
 }
 
-Model::$PDO = $dbh;
+Model::init($dbh);
 
-var_dump(Schedule::find());
+if (isset($_POST['firstName'])) {
+    $user = new User();
+    $user->firstName = $_POST['firstName'];
+    $user->save();
+    echo "<h2>Created user:</h2>";
+    var_dump($user);
+}
+?>
+
+<form action="?" method="post">
+    <input type="text" name="firstName" placeholder="name here"/>
+    <button>create</button>
+</form>
+
+<h2>Users:</h2>
+
+<?php
+
+var_dump(User::find());

@@ -14,7 +14,10 @@ class User extends Model {
     public $id;
     public $firstName;
     public $lastName;
+    public $email;
     public $avatar;
+    public $role = "USER";
+    public $createdAt;
 
     public function fullName(): string {
         return $this->firstName . ' ' . $this->lastName;
