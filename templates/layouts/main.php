@@ -12,6 +12,7 @@
 </head>
 <body>
 <?=$children?>
+<script src="<?= Router::getFile('/js/main.js')?>"></script>
 <script src="<?= Router::getFile('/js/schedule.js')?>"></script>
 </body>
 </html>
