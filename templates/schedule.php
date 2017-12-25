@@ -15,9 +15,7 @@
         <p class="schedule-header__subtitle">
             <?=$this->getLocaleTimeAgo($timefrom)?>
         </p>
-
     </div>
-
     <div class="schedule-table">
         <div class="schedule-table__numbers">
         </div>
@@ -41,5 +39,4 @@
         <div class="close">
         </div>
     </div>
-
 </div>

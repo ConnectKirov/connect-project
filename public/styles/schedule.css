@@ -44,15 +44,19 @@
 
 .button {
     display: inline-block;
-    background-color:rgb(250, 205, 53);
+    background-color:var(--accent-color);
     padding: 10px 20px;
     font-size: 18px;
     border-radius: 8px;
-    color: #306acb;
+    color: var(--primary-color);
+    cursor: pointer;
 }
+
 .schedule .schedule-header .button{
     float: right;
+
 }
+
 .schedule-table {
     flex: 1;
     display: flex;
