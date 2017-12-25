@@ -1,4 +1,4 @@
-$.post('/ajax/schedule', {
+$.get('/ajax/schedule', {
     'date': new Date()
 }).then((data) => {
     data.records.forEach(function (record, i) {

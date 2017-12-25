@@ -11,6 +11,7 @@ include '../classes/App.php';
 include '../classes/Schedule.php';
 include_once '../classes/Request.php';
 include_once '../classes/Response.php';
+include_once '../classes/Model.php';
 include '../services/fetch_users.php';
 include '../services/fetch_schedule.php';
 
