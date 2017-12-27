@@ -4,6 +4,7 @@ include_once "../classes/Model.php";
 include_once "../classes/models/User.php";
 include_once "../classes/models/Schedule.php";
 
+var_dump($_SERVER);
 
 try {
     $dbh = new PDO('mysql:host=localhost;dbname=connect', 'root', '');

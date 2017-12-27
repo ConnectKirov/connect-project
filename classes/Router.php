@@ -4,8 +4,12 @@ class Router {
     private $routes;
     private $params;
     private $path;
+    /**
+     * @var Request
+     */
     private $req;
     private $res;
+    const ALLOWED_METHODS = ['POST', 'GET'];
 
     public function __construct() {
         // отсекаем параметры из адресной строки
@@ -15,24 +19,34 @@ class Router {
         $this->routes = [];
         $this->req = new Request();
         $this->req->params = $this->params;
+        $this->req->body = $_POST;
+        $this->req->method = $_SERVER['REQUEST_METHOD'];
+        if (!in_array($_SERVER['REQUEST_METHOD'], Router::ALLOWED_METHODS)) {
+            header('405 Not Allowed');
+            // throw new Error('Method not allowed', 405);
+        }
         $this->res = new Response();
     }
 
-    /**
-     * @param string|array $paths Путь, например, '/users' или ['/users','/polzovateli']
-     * @param callable $callback Функция-обработчик, которая будет вызвана
-     */
-    public function get($paths, callable $callback) {
-        // возможность передавать в путь строку или массив
+
+    private function addHandler($method, $paths, $callback) {
         if (!is_array($paths)) {
             $paths = [$paths];
         }
         // записываем для каждого пути путь => обработчик
         // пример: $paths = ['/users'] $callback = function() { ... }
         // стало: $this->routes['/users'] = function() { ... }
-        array_walk($paths, function ($path) use ($callback) {
-            $this->routes[$path] = $callback;
+        array_walk($paths, function ($path) use ($callback, $method) {
+            $this->routes[$method][$path] = $callback;
         });
+    }
+
+    public function get($paths, callable $callback) {
+        return $this->addHandler('GET', $paths, $callback);
+    }
+
+    public function post($paths, callable $callback) {
+        return $this->addHandler('POST', $paths, $callback);
     }
 
     /**
@@ -40,10 +54,16 @@ class Router {
      * Как правило, при завершении работы страницы
      */
     public function __destruct() {
+        $func = $this->routes[$this->req->method][$this->path];
+        if (!isset($func)) {
+            header('404 Not Found');
+           // throw new Error('Not Found', 404);
+        }
         // Вызываем обработчик, который соответствует текущему пути в массиве $this->routes
-        echo call_user_func($this->routes[$this->path], $this->req, $this->res);
+        echo call_user_func($func, $this->req, $this->res);
     }
     public static function getFile($url) {
         return $url.'?'.filemtime($_SERVER['DOCUMENT_ROOT'].$url );
     }
 }
+

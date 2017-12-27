@@ -8,19 +8,19 @@ define('MYSQL_DATETIME_FORMAT', 'Y-m-d H:i:s');
 // autorelations on load and save
 
 interface ModelType {
-    public static function load($value);
+    public static function load(string $value);
 
-    public static function save($value);
+    public static function save($value): string;
 
     public static function serialize($value);
 }
 
 class SimpleArrayType implements ModelType {
-    public static function load($value) {
+    public static function load(string $value) {
         return explode($value, ',');
     }
 
-    public static function save($value) {
+    public static function save($value): string {
         return implode($value, ',');
     }
 
@@ -31,14 +31,22 @@ class SimpleArrayType implements ModelType {
 
 
 class DateType implements ModelType {
-    public static function load($value) {
+    public static function load(string $value) {
         return DateTime::createFromFormat(MYSQL_DATETIME_FORMAT, $value);
     }
 
-    public static function save($value) {
+    /**
+     * @param $value DateTime
+     * @return string
+     */
+    public static function save($value): string {
         return $value->format(MYSQL_DATETIME_FORMAT);
     }
 
+    /**
+     * @param $value DateTime
+     * @return string
+     */
     public static function serialize($value) {
         return $value->format(DATE_ISO8601);
     }
@@ -76,7 +84,7 @@ class Model implements JsonSerializable {
             return ":${key}";
         }, $keys);
         $values = implode(',', $values);
-        return "(${fields}) VALUES ({$values})";
+        return " (${fields}) VALUES ({$values})";
     }
 
     private static function buildValuesUpdate($vars): string {
@@ -124,7 +132,13 @@ class Model implements JsonSerializable {
         $sth = self::$PDO->prepare("SELECT * FROM `" . static::tableName . "` WHERE id = ?");
         $sth->execute([$this->id]);
         $sth->setFetchMode(PDO::FETCH_INTO, $this);
-        $sth->fetch();
+        return $sth->fetch();
+    }
+
+    public function getArray(): array {
+        return array_filter(get_object_vars($this), function ($item) {
+            return $item !== null;
+        });
     }
 
     /*
@@ -132,12 +146,10 @@ class Model implements JsonSerializable {
      */
     public function save() {
         // выбираем только существующие поля
-        $vars = array_filter(get_object_vars($this), function ($item) {
-            return $item !== null;
-        });
+        $vars = $this->getArray();
         // если нет id, то считаем, что запись новая
         if (!$this->id) {
-            $sql = "INSERT INTO `" . static::tableName . "` " . self::buildValuesInsert($vars);
+            $sql = "INSERT INTO `" . static::tableName . "`" . self::buildValuesInsert($vars);
             $sth = self::$PDO->prepare($sql);
             $sth->execute($vars);
             $this->id = self::$PDO->lastInsertId();
@@ -154,6 +166,6 @@ class Model implements JsonSerializable {
 
     // TODO:
     public function jsonSerialize() {
-        return [];
+        return $this->getArray();
     }
 }

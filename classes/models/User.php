@@ -19,7 +19,20 @@ class User extends Model {
     public $role = "USER";
     public $createdAt;
 
+    private function hashPassword($pass) {
+        return password_hash($pass, PASSWORD_BCRYPT);
+    }
+
+
     public function fullName(): string {
         return $this->firstName . ' ' . $this->lastName;
+    }
+
+    public function setPassword($password) {
+        $this->password = $this->hashPassword($password);
+    }
+
+    public function comparePassword($password) {
+        return $this->hashPassword($this->password) === $this->hashPassword($password);
     }
 }

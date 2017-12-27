@@ -1,16 +1,13 @@
 <?php
 
 $router->get('/users', function () use ($app) {
-    $users = fetch_users();
     return $app->templating->renderWithLayout('users', [
-        'users' => $users
+        'users' => User::find()
     ]);
 });
 
 $router->get('/user', function (Request $req) use ($app) {
-    $users = fetch_users($req->params['name']);
-
-    return $app->templating->renderWithLayout('users', [
-        'users' => $users
+    return $app->templating->renderWithLayout('user', [
+        'users' => User::findOne($req->params['id'])
     ]);
 });

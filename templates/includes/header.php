@@ -10,7 +10,8 @@
     <nav class="header-links">
         <a href="/schedule">Расписание</a>
         <a href="https://yandex.ru/maps/-/CBajyMV5cD">Где мы</a>
-        <a href="/users">Вход</a>
+        <a href="/sign-in">Вход</a>
+        <a href="/sign-up">Регистрация</a>
     </nav>
     </div>
 </header>
