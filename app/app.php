@@ -41,6 +41,15 @@ $router->get('/contacts', function () use ($app) {
 $router->get('/sign-in', function ($req) use ($app) {
     return $app->templating->renderWithLayout('sign_up');
 });
+$router->post('/sign-in', function (Request $req, Response $res) use ($app) {
+    $user = User::find([
+        'email'=>$req->body['email']
+    ])[0];
+    if( $user->comparePassword($req->body['password'])){
+        return $res->redirect("/user/?id={$user->id}");
+    }
+    else echo '666';
+});
 
 $router->get('/sign-up', function () use ($app) {
     return $app->templating->renderWithLayout('sign_up');
@@ -78,6 +87,13 @@ $router->get('/api/schedule', function (Request $req, Response $res) use ($app){
             'currentDate'=> (new DateTime())->setTime(0, 0)->format(DATE_ISO8601)
         ]
     ]);
+});
+
+$router->post('/api/schedule/add_person', function (Request $req, Response $res) use ($app){
+    $arr = [
+        'status'=>'ok'
+    ];
+    return $res->json($arr);
 });
 
 $router->get('/schedule', function() use ($app) {

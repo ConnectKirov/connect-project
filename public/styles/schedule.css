@@ -1,3 +1,7 @@
+form {
+    margin: 0;
+}
+
 .schedule-header {
     position: relative;
     color: #fff;
@@ -133,7 +137,6 @@
     padding: 20px 0;
     box-sizing: border-box;
     overflow: auto;
-
 }
 
 .window .in_window{
@@ -141,7 +144,7 @@
     width: 400px;
     padding:20px;
     background-color: white;
-
+    padding-bottom: 15px;
 }
 .window .in_window .close{
     float: right;
@@ -152,4 +155,33 @@
     height: 20px;
     cursor: pointer;
 
+}
+.window h2 {
+    margin: 0;
+    line-height: 20px;
+    margin-bottom: 20px;
+    font-weight: normal;
+    font-size: 20px;
+}
+.form .subject {
+    margin-bottom: 10px;
+}
+.window .form {
+    font-size: 18px;
+    text-align: center;
+}
+.button.schedule_send {
+    display: block;
+    background-color: var(--primary-color);
+    margin-top: 25px;
+    color: white;
+    text-align: center;
+}
+.form.schedule_form select{
+    padding: 5px;
+    font-size: 18px;
+}
+
+.form.schedule_form select[name='time_start']{
+    margin-right: 20px;
 }

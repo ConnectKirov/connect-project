@@ -34,4 +34,9 @@ $(function () {
     $('.schedule_add').on('click', function () {
         showWindow('schedule');
     });
+    $('.schedule_send').on('click',function () {
+      var form = $(this).closest('form');
+      var data = form.serializeArray();
+      console.log(data);
+     })
 });

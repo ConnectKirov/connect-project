@@ -35,8 +35,27 @@
 </div>
 <div class="window" rel="schedule">
     <div class="in_window">
-        Hello!!!
         <div class="close">
         </div>
+        <h2>
+            Выберите время
+        </h2>
+        <form class="form schedule_form" action="/api/schedule/add_person" method="post">
+            от
+            <select name="time_start">
+                <option></option>
+                <?php for ($i = $timefrom; $i<= $timeto; $i+=3600): ?>
+                   <option value="<?=$i?>"><?=date('H:i',$i)?></option>
+                <?php endfor; ?>
+            </select>
+            до
+            <select name="time_end">
+                <option></option>
+                <?php for ($i = $timefrom; $i<= $timeto; $i+=3600): ?>
+                    <option value="<?=$i?>"><?=date('H:i',$i)?></option>
+                <?php endfor; ?>
+            </select>
+            <div class="button schedule_send">Занять</div>
+        </form>
     </div>
 </div>
