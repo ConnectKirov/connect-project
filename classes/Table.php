@@ -47,9 +47,7 @@ class Table {
     }
 
     public function int(string $columnName): Column {
-        $column = new Column('integer', $columnName);
-        $this->columns[] = $column;
-        return $column;
+        return $this->column($columnName, 'integer');
     }
 
     public function string(string $columnName): Column {
