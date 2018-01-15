@@ -104,7 +104,8 @@ class Model implements JsonSerializable {
      * @return [Model]
      */
     public static function find($where = []): array {
-        $sth = self::$PDO->prepare("SELECT * FROM `" . static::tableName . "`" . self::buildWhere($where));
+        $sql = "SELECT * FROM `" . static::tableName . "`" . self::buildWhere($where);
+        $sth = self::$PDO->prepare($sql);
         $sth->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
         $sth->execute($where);
 
@@ -117,12 +118,15 @@ class Model implements JsonSerializable {
      * @param $id
      * @return Model
      */
-    public static function findOne($id): Model {
-        $sth = self::$PDO->prepare("SELECT * FROM `" . static::tableName . "` WHERE id = ?");
-        $sth->execute([$id]);
+    public static function findOne($where): ?Model {
+        $where = is_array($where) ? $where : ['id' => $where];
+        $sql = "SELECT * FROM `" . static::tableName . "`" . self::buildWhere($where);
+        $sth = self::$PDO->prepare($sql);
+        $sth->execute($where);
         $sth->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
 
-        return $sth->fetch();
+        $res = $sth->fetch();
+        return $res ? $res : null;
     }
 
     /**
@@ -145,6 +149,9 @@ class Model implements JsonSerializable {
      * Сохраняем поля текущего класса в бд
      */
     public function save() {
+        if (method_exists($this, 'beforeSave')) {
+            $this->beforeSave();
+        }
         // выбираем только существующие поля
         $vars = $this->getArray();
         // если нет id, то считаем, что запись новая

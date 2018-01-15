@@ -1,0 +1,14 @@
+.messages {
+
+}
+
+.message {
+    background: #eee;
+    padding: 16px;
+    font-weight: 500;
+}
+
+.message--error {
+    background: #ffebee;
+    color: #f44336;
+}

@@ -13,6 +13,9 @@ class Schedule extends Model {
     public const tableName = 'schedule';
 
     public $id;
+    /**
+     * @var User
+     */
     public $user;
     public $dateStart;
     public $dateEnd;

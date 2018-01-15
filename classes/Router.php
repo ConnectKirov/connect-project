@@ -8,6 +8,9 @@ class Router {
      * @var Request
      */
     private $req;
+    /**
+     * @var Response
+     */
     private $res;
     const ALLOWED_METHODS = ['POST', 'GET'];
 
@@ -39,6 +42,7 @@ class Router {
         array_walk($paths, function ($path) use ($callback, $method) {
             $this->routes[$method][$path] = $callback;
         });
+        return null;
     }
 
     public function get($paths, callable $callback) {
@@ -47,6 +51,14 @@ class Router {
 
     public function post($paths, callable $callback) {
         return $this->addHandler('POST', $paths, $callback);
+    }
+
+    public function put($paths, callable $callback) {
+        return $this->addHandler('PUT', $paths, $callback);
+    }
+
+    public function delete($paths, callable $callback) {
+        return $this->addHandler('DELETE', $paths, $callback);
     }
 
     /**

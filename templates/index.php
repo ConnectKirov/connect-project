@@ -21,4 +21,3 @@
         </div>
     </div>
 </div>
-<?=$this->renderInclude('schedule')?>

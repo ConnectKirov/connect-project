@@ -30,6 +30,7 @@ $.get('/api/schedule', {
         $('.schedule-table-row').html(tpl);
     });
 });
+
 $(function () {
     $('.schedule_add').on('click', function () {
         showWindow('schedule');

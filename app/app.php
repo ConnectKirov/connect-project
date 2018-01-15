@@ -2,6 +2,8 @@
 
 date_default_timezone_set('Europe/Moscow');
 define('SCHEDULE_HOURS', 16);
+define('COOKIE_TOKEN', 'COOKIE_TOKEN');
+error_reporting(E_ALL);
 
 try {
     $dbh = new PDO('mysql:host=localhost;dbname=connect', 'root', '');
@@ -13,6 +15,7 @@ try {
 include '../functions.php';
 include '../classes/Model.php';
 include '../classes/models/User.php';
+include '../classes/models/AuthToken.php';
 include '../classes/Template.php';
 include '../classes/Router.php';
 include '../classes/App.php';
@@ -43,12 +46,13 @@ $router->get('/sign-in', function ($req) use ($app) {
 });
 $router->post('/sign-in', function (Request $req, Response $res) use ($app) {
     $user = User::find([
-        'email'=>$req->body['email']
+        'email' => $req->body['email']
     ])[0];
-    if( $user->comparePassword($req->body['password'])){
+    if ($user->comparePassword($req->body['password'])) {
         return $res->redirect("/user/?id={$user->id}");
+    } else {
+        echo '666';
     }
-    else echo '666';
 });
 
 $router->get('/sign-up', function () use ($app) {
@@ -74,9 +78,9 @@ $router->get('/schedule', function () use ($app) {
 });
 
 
-$router->get('/api/schedule', function (Request $req, Response $res) use ($app){
+$router->get('/api/schedule', function (Request $req, Response $res) use ($app) {
     $start = (new DateTime())->setTime(10, 0);
-    $end = (new DateTime())->setTime(10, 0)->modify("+" . SCHEDULE_HOURS - 1 ." hours");
+    $end = (new DateTime())->setTime(10, 0)->modify("+" . SCHEDULE_HOURS - 1 . " hours");
 
     return $res->json([
         'records' => Schedule::find(),
@@ -84,27 +88,27 @@ $router->get('/api/schedule', function (Request $req, Response $res) use ($app){
             'dateFrom' => $start->format(DATE_ISO8601),
             'dateTo' => $end->format(DATE_ISO8601),
             'hours' => SCHEDULE_HOURS,
-            'currentDate'=> (new DateTime())->setTime(0, 0)->format(DATE_ISO8601)
+            'currentDate' => (new DateTime())->setTime(0, 0)->format(DATE_ISO8601)
         ]
     ]);
 });
 
-$router->post('/api/schedule/add_person', function (Request $req, Response $res) use ($app){
+$router->put('/api/schedule/add_person', function (Request $req, Response $res) use ($app) {
     $arr = [
-        'status'=>'ok'
+        'status' => 'ok'
     ];
     return $res->json($arr);
 });
 
-$router->get('/schedule', function() use ($app) {
-    $date =date('Y-m-d');
-    $timefrom = strtotime($date.' 10:00:00');
-    $timeto = strtotime($date.' 01:00:00')+24*3600;
-    $counthours=($timeto-$timefrom)/3600+1;
-    return $app->templating->renderWithLayout('schedule',[
-        'timefrom' =>$timefrom,
+$router->get('/schedule', function () use ($app) {
+    $date = date('Y-m-d');
+    $timefrom = strtotime($date . ' 10:00:00');
+    $timeto = strtotime($date . ' 01:00:00') + 24 * 3600;
+    $counthours = ($timeto - $timefrom) / 3600 + 1;
+    return $app->templating->renderWithLayout('schedule', [
+        'timefrom' => $timefrom,
         'timeto' => $timeto,
         'counthours' => $counthours,
-        'date'=>$date
+        'date' => $date
     ]);
 });

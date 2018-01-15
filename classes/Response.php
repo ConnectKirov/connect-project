@@ -11,4 +11,13 @@ class Response {
         header("Location: {$url}");
         return null;
     }
+
+    public function status($status) {
+        header("Status: {$status}");
+    }
+
+    public function setCookie($name, $value, $expire = null, $path = '/', ...$args) {
+        $expire = $expire ?? time() + 60 * 60 * 24 * 30;
+        setcookie($name, $value, $expire, $path, ...$args);
+    }
 }
