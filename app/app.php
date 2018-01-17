@@ -1,12 +1,15 @@
 <?php
 
+$config = include_once "../example-config.php";
+
 date_default_timezone_set('Europe/Moscow');
 define('SCHEDULE_HOURS', 16);
 define('COOKIE_TOKEN', 'COOKIE_TOKEN');
 error_reporting(E_ALL);
 
 try {
-    $dbh = new PDO('mysql:host=localhost;dbname=connect', 'root', '');
+    $dbh = new PDO("mysql:host={$config['database']['host']};dbname={$config['database']['dbname']}",
+        $config['database']['user'], $config['database']['password']);
 } catch (PDOException $error) {
     print "DB error: " . $error->getMessage() . "<br/>";
     die();

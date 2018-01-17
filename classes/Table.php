@@ -51,7 +51,7 @@ class Table {
     }
 
     public function string(string $columnName): Column {
-        return $this->column($columnName, 'string');
+        return $this->column($columnName, 'varchar');
     }
 
     public function date(string $columnName): Column {
@@ -66,6 +66,12 @@ class Table {
         return $this->column($columnName, 'integer')
             ->key('PRIMARY')
             ->autoIncrement()
+            ->unsigned();
+    }
+
+    // TODO: implement foreign in db
+    public function foreign($columnName): Column {
+        return $this->column($columnName, 'integer')
             ->unsigned();
     }
 

@@ -14,6 +14,8 @@ class Column {
     private $unsigned;
     private $onUpdate;
     private $onDelete;
+    private $referencesTable;
+    private $referencesColumn;
     private $values = [];
 
     public const CURRENT_TIMESTAMP = "CURRENT_TIMESTAMP";
@@ -66,10 +68,6 @@ class Column {
             $sqls[] = "ON UPDATE {$this->onUpdate}";
         }
 
-        if ($this->onDelete) {
-            $sqls[] = "ON DELETE {$this->onDelete}";
-        }
-
         if ($this->comment) {
             $sqls[] = "COMMENT '{$this->comment}'";
         }
@@ -82,11 +80,30 @@ class Column {
             $sqls[] = "AUTO_INCREMENT";
         }
 
+        if ($this->referencesTable && $this->referencesColumn) {
+            $sqls[] = "REFERENCES {$this->referencesTable}({$this->referencesColumn})";
+            $this->onDelete = $this->onDelete ?? "CASCADE";
+        }
+
+        if ($this->onDelete) {
+            $sqls[] = "ON DELETE {$this->onDelete}";
+        }
+
         return implode(" ", $sqls);
     }
 
     public function type(string $type) {
         $this->type = strtoupper($type);
+        return $this;
+    }
+
+    public function references(string $columnName) {
+        $this->referencesColumn = $columnName;
+        return $this;
+    }
+
+    public function inTable(string $tableName) {
+        $this->referencesTable = $tableName;
         return $this;
     }
 

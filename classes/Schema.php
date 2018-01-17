@@ -4,6 +4,11 @@ include_once __DIR__ . "/Table.php";
 
 class Schema {
 
+    private static $dbh;
+
+    public static function setConnection(PDO $dbh) {
+        self::$dbh = $dbh;
+    }
 
     /**
      * Создает таблицу с заданным именем, и вызывает коллбек с  $table первым аргументом
@@ -46,9 +51,7 @@ class Schema {
     }
 
     public static function query($sql) {
-        // TODO: implement db query
-        print "SQL: \n\n";
-        print $sql;
-        print "\n";
+        // print $sql;
+        self::$dbh->query($sql);
     }
 }
