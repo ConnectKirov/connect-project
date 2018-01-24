@@ -1,10 +1,11 @@
 <?php
 
+namespace App\Lib;
+
 class Template {
     private $layout;
 
-    public function setLayout($name)
-    {
+    public function setLayout($name) {
         $this->layout = $this->getPath('layouts/' . $name);
     }
 
@@ -16,8 +17,7 @@ class Template {
      *
      * @return string html код страницы
      */
-    private function render()
-    {
+    private function render() {
         // включаем буфер вывода
         ob_start();
         // если передан массив, то преобразуем его в переменные
@@ -30,18 +30,15 @@ class Template {
         return ob_get_clean();
     }
 
-    private function renderInclude($name, $params = [])
-    {
+    private function renderInclude($name, $params = []) {
         return $this->render($this->getPath($name), $params);
     }
 
-    private function getPath()
-    {
+    private function getPath() {
         return __DIR__ . '/../templates/' . func_get_arg(0) . '.php';
     }
 
-    public function renderWithLayout($name, $params = [], $title = 'Connect')
-    {
+    public function renderWithLayout($name, $params = [], $title = 'Connect') {
         $html = $this->render($this->getPath($name), $params);
         return $this->render($this->layout, ['children' => $html, 'title' => $title]);
     }
@@ -52,8 +49,7 @@ class Template {
      * @param array ...$args
      * @return string
      */
-    public function cs(...$args)
-    {
+    public function cs(...$args) {
         $classes = '';
         foreach ($args as $arg) {
             if (is_string($arg)) {
@@ -73,27 +69,44 @@ class Template {
     }
 
     public function getLocaleDate($date) {
-        $month = ['', 'Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
+        $month = [
+            '',
+            'Января',
+            'Февраля',
+            'Марта',
+            'Апреля',
+            'Мая',
+            'Июня',
+            'Июля',
+            'Августа',
+            'Сентября',
+            'Октября',
+            'Ноября',
+            'Декабря'
+        ];
         $day = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
         return date('d', $date) . ' ' . $month[date('n', $date)] . ', ' . $day[date('w', $date)];
     }
 
 
-    public function getLocaleTimeAgo($date){
+    public function getLocaleTimeAgo($date) {
         $d = date('Y-m-d');
-        $d1 = date('Y-m-d',$date);
-        $dz = date('Y-m-d',time()+3600*24);
-        $dw = date('Y-m-d',time()-3600*24);
-        if ($d==$d1){
+        $d1 = date('Y-m-d', $date);
+        $dz = date('Y-m-d', time() + 3600 * 24);
+        $dw = date('Y-m-d', time() - 3600 * 24);
+        if ($d == $d1) {
             return 'сегодня';
-        }
-        elseif ($d==$dz){
+        } elseif ($d == $dz) {
             return 'завтра';
-        }
-        elseif ($d==$dw){
+        } elseif ($d == $dw) {
             return 'вчера';
+        } else {
+            return '';
         }
-        else return '';
+    }
+
+    public function getFile($url) {
+        return $url . '?' . filemtime($_SERVER['DOCUMENT_ROOT'] . $url);
     }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Lib;
+
 class App {
     /**
      * @var Template

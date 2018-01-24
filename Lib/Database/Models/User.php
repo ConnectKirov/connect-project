@@ -1,5 +1,11 @@
 <?php
 
+namespace App\Lib\Database\Models;
+
+$config = include_once "../../../config.php";
+
+use \App\Lib\Database\Model;
+
 /**
  * Class User
  *
@@ -31,5 +37,20 @@ class User extends Model {
 
     public function comparePassword($password) {
         return password_verify($password, $this->password);
+    }
+
+    public static function fromRequest(\App\Lib\Http\Request $req) {
+        $token = AuthToken::findOne([ 'token' => $req->cookies[COOKIE_TOKEN] ]);
+        if (!$token) {
+            throw new HttpException('Token now found');
+        }
+        if ($token->dateUntil < new DateTime()) {
+            throw new HttpException('Token exiped');
+        }
+        return User::findOne($token->user);
+    }
+
+    public static function authWithVk() {
+
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use App\Lib\Http\Request;
+use App\Lib\Http\Response;
+
 $router->get('/users', function () use ($app) {
     return $app->templating->renderWithLayout('users', [
         'users' => User::find()

@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Lib\Database\Models;
+
+use \App\Lib\Database\Model;
+
 /**
  * Class AuthToken
  *

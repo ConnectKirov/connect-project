@@ -1,12 +1,12 @@
 <?php
 
-include_once __DIR__ . "/Table.php";
+namespace App\Lib\Database;
 
 class Schema {
 
     private static $dbh;
 
-    public static function setConnection(PDO $dbh) {
+    public static function setConnection(\PDO $dbh) {
         self::$dbh = $dbh;
     }
 

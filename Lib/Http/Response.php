@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Lib\Http;
+
 class Response {
     public function json($data) {
         header('Content-type: application/json');

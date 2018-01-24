@@ -1,7 +1,7 @@
 <html>
 <head>
-    <link rel="stylesheet" href="<?= Router::getFile('/styles/style.css')?>">
-    <link rel="stylesheet" href="<?= Router::getFile('/styles/schedule.css')?>">
+    <link rel="stylesheet" href="<?= $this->getFile('/styles/style.css')?>">
+    <link rel="stylesheet" href="<?= $this->getFile('/styles/schedule.css')?>">
     <link rel="stylesheet" href="/bower_components/normalize-css/normalize.css">
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700&amp;subset=cyrillic" rel="stylesheet">

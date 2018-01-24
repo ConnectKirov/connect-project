@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Lib\Http;
+
 class Router {
     private $routes;
     private $params;
@@ -24,6 +26,7 @@ class Router {
         $this->req->params = $this->params;
         $this->req->body = $_POST;
         $this->req->method = $_SERVER['REQUEST_METHOD'];
+        $this->req->cookies = $_COOKIE;
         if (!in_array($_SERVER['REQUEST_METHOD'], Router::ALLOWED_METHODS)) {
             header('405 Not Allowed');
             // throw new Error('Method not allowed', 405);
@@ -73,9 +76,6 @@ class Router {
         }
         // Вызываем обработчик, который соответствует текущему пути в массиве $this->routes
         echo call_user_func($func, $this->req, $this->res);
-    }
-    public static function getFile($url) {
-        return $url.'?'.filemtime($_SERVER['DOCUMENT_ROOT'].$url );
     }
 }
 

@@ -1,6 +1,15 @@
 <?php
 
-$config = include_once "../example-config.php";
+include __DIR__ . "/../vendor/autoload.php";
+
+use App\Lib\App;
+use App\Lib\Database\Model;
+use App\Lib\Http\Request;
+use App\Lib\Http\Response;
+use App\Lib\Http\Router;
+use App\Lib\Template;
+
+$config = include_once "../config.php";
 
 date_default_timezone_set('Europe/Moscow');
 define('SCHEDULE_HOURS', 16);
@@ -16,19 +25,9 @@ try {
 }
 
 include '../functions.php';
-include '../classes/Model.php';
-include '../classes/models/User.php';
-include '../classes/models/AuthToken.php';
-include '../classes/Template.php';
-include '../classes/Router.php';
-include '../classes/App.php';
-include '../classes/models/Schedule.php';
-include_once '../classes/Request.php';
-include_once '../classes/Response.php';
-include '../services/fetch_users.php';
-include '../services/fetch_schedule.php';
 
 $app = new App();
+
 Model::init($dbh);
 
 $template = new Template();
@@ -38,7 +37,7 @@ $app->setTemplating($template);
 $router = new Router();
 
 // все роуты, связанные с пользователями, кладем сюда
-include '../routes/users.php';
+include '../Controllers/users.php';
 
 $router->get('/contacts', function () use ($app) {
     return $app->templating->renderWithLayout('contacts');
@@ -96,11 +95,15 @@ $router->get('/api/schedule', function (Request $req, Response $res) use ($app) 
     ]);
 });
 
-$router->put('/api/schedule/add_person', function (Request $req, Response $res) use ($app) {
-    $arr = [
-        'status' => 'ok'
-    ];
-    return $res->json($arr);
+$router->put('/api/schedule', function (Request $req, Response $res) use ($app) {
+    $user = User::fromRequest($req);
+    $input = $req->body;
+
+    $schedule = new Schedule();
+    $schedule->dateStart;
+    $res->status(201);
+
+    return $res->json();
 });
 
 $router->get('/schedule', function () use ($app) {

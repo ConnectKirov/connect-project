@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Lib\Database;
+
 class Column {
     private $columnName;
     private $type;

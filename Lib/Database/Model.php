@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Lib\Database;
+
 define('MYSQL_DATETIME_FORMAT', 'Y-m-d H:i:s');
 
 // TODO:
@@ -32,11 +34,11 @@ class SimpleArrayType implements ModelType {
 
 class DateType implements ModelType {
     public static function load(string $value) {
-        return DateTime::createFromFormat(MYSQL_DATETIME_FORMAT, $value);
+        return \DateTime::createFromFormat(MYSQL_DATETIME_FORMAT, $value);
     }
 
     /**
-     * @param $value DateTime
+     * @param $value \DateTime
      * @return string
      */
     public static function save($value): string {
@@ -44,7 +46,7 @@ class DateType implements ModelType {
     }
 
     /**
-     * @param $value DateTime
+     * @param $value \DateTime
      * @return string
      */
     public static function serialize($value) {
@@ -55,12 +57,12 @@ class DateType implements ModelType {
 /**
  * Class Model
  *
- * @property PDO $PDO
+ * @property \PDO $PDO
  */
-class Model implements JsonSerializable {
+class Model implements \JsonSerializable {
     public static $PDO;
 
-    public static function init($PDO) {
+    public static function init(\PDO $PDO) {
         static::$PDO = $PDO;
     }
 
@@ -106,7 +108,7 @@ class Model implements JsonSerializable {
     public static function find($where = []): array {
         $sql = "SELECT * FROM `" . static::tableName . "`" . self::buildWhere($where);
         $sth = self::$PDO->prepare($sql);
-        $sth->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
+        $sth->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, static::class);
         $sth->execute($where);
 
         return $sth->fetchAll();
@@ -123,7 +125,7 @@ class Model implements JsonSerializable {
         $sql = "SELECT * FROM `" . static::tableName . "`" . self::buildWhere($where);
         $sth = self::$PDO->prepare($sql);
         $sth->execute($where);
-        $sth->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, static::class);
+        $sth->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, static::class);
 
         $res = $sth->fetch();
         return $res ? $res : null;
@@ -135,7 +137,7 @@ class Model implements JsonSerializable {
     public function refresh() {
         $sth = self::$PDO->prepare("SELECT * FROM `" . static::tableName . "` WHERE id = ?");
         $sth->execute([$this->id]);
-        $sth->setFetchMode(PDO::FETCH_INTO, $this);
+        $sth->setFetchMode(\PDO::FETCH_INTO, $this);
         return $sth->fetch();
     }
 

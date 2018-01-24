@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . "/Column.php";
+namespace App\Lib\Database;
 
 class Table {
     private $tableName;

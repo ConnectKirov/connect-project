@@ -7,5 +7,11 @@ return [
       'dbname' => 'connect',
       'user' => 'root',
       'password' => '',
-  ]
+  ],
+    'services' => [
+        'vk' => [
+            'clientSecret' => '',
+            'clientId' => ''
+        ]
+    ],
 ];

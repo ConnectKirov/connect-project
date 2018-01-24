@@ -26,6 +26,7 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    margin-top: -64px;
 
 }
 .step.main .back{
