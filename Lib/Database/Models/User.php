@@ -2,9 +2,10 @@
 
 namespace App\Lib\Database\Models;
 
-$config = include_once "../../../config.php";
-
 use \App\Lib\Database\Model;
+use App\Lib\Http\Request;
+use ATehnix\VkClient\Auth;
+use DateTime;
 
 /**
  * Class User
@@ -26,6 +27,7 @@ class User extends Model {
     public $createdAt;
     public $updatedAt;
     private $password;
+    const AUTH_COOKIE = "COOKIE_TOKEN";
 
     public function fullName(): string {
         return $this->firstName . ' ' . $this->lastName;
@@ -39,18 +41,24 @@ class User extends Model {
         return password_verify($password, $this->password);
     }
 
-    public static function fromRequest(\App\Lib\Http\Request $req) {
-        $token = AuthToken::findOne([ 'token' => $req->cookies[COOKIE_TOKEN] ]);
+    public static function fromRequest(Request $req) {
+        $token = AuthToken::findOne([ 'token' => $req->getCookie(User::AUTH_COOKIE)]);
         if (!$token) {
-            throw new HttpException('Token now found');
+            throw new \HttpException('Token now found');
         }
         if ($token->dateUntil < new DateTime()) {
-            throw new HttpException('Token exiped');
+            throw new \HttpException('Token expried');
         }
         return User::findOne($token->user);
     }
 
     public static function authWithVk() {
+        $auth = new Auth('client_id', 'client_secret', 'redirect_uri');
 
+        echo "<a href='{$auth->getUrl()}'>ClickMe<a>";
+
+        // ...
+
+        $token = $auth->getToken($_GET['code']);
     }
 }

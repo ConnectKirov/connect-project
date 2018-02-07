@@ -7,6 +7,7 @@
 
 <section>
     <h1>Вход</h1>
+    <div><a href="<?=$vkUrl?>" class="">Войти через ВКонтакте</a></div>
     <?php if(isset($errors)): ?>
         <div class="messages">
             <?php foreach ($errors as $error): ?>

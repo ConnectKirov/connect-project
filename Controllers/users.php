@@ -1,7 +1,11 @@
 <?php
 
-use App\Lib\Http\Request;
-use App\Lib\Http\Response;
+use App\Lib\Database\Models\{
+    AuthToken, User
+};
+use App\Lib\Http\{
+    Request, Response
+};
 
 $router->get('/users', function () use ($app) {
     return $app->templating->renderWithLayout('users', [
@@ -25,7 +29,7 @@ $router->get('/user', function (Request $req, Response $res) use ($app) {
 });
 
 $router->get('/sign-in', function ($req) use ($app) {
-    return $app->templating->renderWithLayout('sign_in');
+    return $app->templating->renderWithLayout('sign_in', ['vkUrl' => $app->auth->getUrl()]);
 });
 
 $router->get('/sign-up', function () use ($app) {
@@ -33,11 +37,14 @@ $router->get('/sign-up', function () use ($app) {
 });
 
 $router->post('/sign-up', function (Request $req, Response $res) use ($app) {
+
     $user = new User();
     $user->email = $req->body['email'];
     $user->setPassword($req->body['password']);
     $user->firstName = $req->body['firstName'];
     $user->save();
+
+    return $res->json($user);
 
     return $res->redirect("/user/?id={$user->id}");
 });
@@ -62,7 +69,7 @@ $router->post('/sign-in', function (Request $req, Response $res) use ($app) {
     $token->dateUntil = (new DateTime())->modify("+ 1 month");
     $token->save();
 
-    $res->setCookie(COOKIE_TOKEN, $token->token);
+    $res->setCookie(User::AUTH_COOKIE, $token->token);
 
     return $res->redirect("/user/?id={$user->id}");
 });

@@ -10,7 +10,7 @@ use \App\Lib\Database\Model;
  * @property int $id
  * @property User $user
  * @property string $token
- * @property DateTime $dateUntil
+ * @property \DateTime $dateUntil
  */
 class AuthToken extends Model {
     public const tableName = 'auth_tokens';

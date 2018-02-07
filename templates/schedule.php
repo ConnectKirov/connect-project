@@ -12,6 +12,7 @@
         <h2 class="schedule-header__title">
             <?=$this->getLocaleDate($timefrom)?>
         </h2>
+
         <p class="schedule-header__subtitle">
             <?=$this->getLocaleTimeAgo($timefrom)?>
         </p>

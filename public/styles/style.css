@@ -15,9 +15,11 @@ body {
     flex-direction: column;
 }
 
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
+
 .step{
     min-height: calc(100vh - 64px);
 }

@@ -3,17 +3,19 @@
 include __DIR__ . "/../vendor/autoload.php";
 
 use App\Lib\App;
-use App\Lib\Database\Model;
-use App\Lib\Http\Request;
-use App\Lib\Http\Response;
-use App\Lib\Http\Router;
+use App\Lib\Database\Models\Schedule;
+use App\Lib\Database\Models\User;
 use App\Lib\Template;
+use App\Lib\Database\Model;
+use App\Lib\Http\{
+    Request, Response, Router
+};
+use ATehnix\VkClient\Auth;
 
 $config = include_once "../config.php";
 
 date_default_timezone_set('Europe/Moscow');
 define('SCHEDULE_HOURS', 16);
-define('COOKIE_TOKEN', 'COOKIE_TOKEN');
 error_reporting(E_ALL);
 
 try {
@@ -28,11 +30,17 @@ include '../functions.php';
 
 $app = new App();
 
-Model::init($dbh);
 
+Model::init($dbh);
+$auth = new Auth(
+    $config['services']['vk']['clientId'],
+    $config['services']['vk']['clientSecret'],
+    'http://localhost:8090/user/auth/vk'
+);
 $template = new Template();
 $template->setLayout('main'); // layout = ../templates/layouts/main.php
 $app->setTemplating($template);
+$app->setVkAuth($auth);
 
 $router = new Router();
 
@@ -41,33 +49,6 @@ include '../Controllers/users.php';
 
 $router->get('/contacts', function () use ($app) {
     return $app->templating->renderWithLayout('contacts');
-});
-
-$router->get('/sign-in', function ($req) use ($app) {
-    return $app->templating->renderWithLayout('sign_up');
-});
-$router->post('/sign-in', function (Request $req, Response $res) use ($app) {
-    $user = User::find([
-        'email' => $req->body['email']
-    ])[0];
-    if ($user->comparePassword($req->body['password'])) {
-        return $res->redirect("/user/?id={$user->id}");
-    } else {
-        echo '666';
-    }
-});
-
-$router->get('/sign-up', function () use ($app) {
-    return $app->templating->renderWithLayout('sign_up');
-});
-$router->post('/sign-up', function (Request $req, Response $res) use ($app) {
-    $user = new User();
-    $user->email = $req->body['email'];
-    $user->setPassword($req->body['password']);
-    $user->firstName = $req->body['firstName'];
-    $user->save();
-
-    return $res->redirect("/user/?id={$user->id}");
 });
 
 $router->get('/', function () use ($app) {
@@ -101,6 +82,7 @@ $router->put('/api/schedule', function (Request $req, Response $res) use ($app) 
 
     $schedule = new Schedule();
     $schedule->dateStart;
+    $schedule->user = $user->id;
     $res->status(201);
 
     return $res->json();

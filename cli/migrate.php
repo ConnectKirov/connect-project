@@ -2,9 +2,8 @@
 
 include __DIR__ . "/../vendor/autoload.php";
 
-use App\Lib\Database\Model;
+use App\Lib\Database\{Model, Schema};
 use App\Lib\Database\Models\Migration;
-use App\Lib\Database\Schema;
 use App\Lib\Database\MigrationInterface;
 
 include_once __DIR__ . '/../functions.php';

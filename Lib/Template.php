@@ -5,7 +5,7 @@ namespace App\Lib;
 class Template {
     private $layout;
 
-    public function setLayout($name) {
+    public function setLayout(string $name) {
         $this->layout = $this->getPath('layouts/' . $name);
     }
 
@@ -17,7 +17,7 @@ class Template {
      *
      * @return string html код страницы
      */
-    private function render() {
+    private function render(): string {
         // включаем буфер вывода
         ob_start();
         // если передан массив, то преобразуем его в переменные

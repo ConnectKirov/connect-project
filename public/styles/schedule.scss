@@ -2,6 +2,8 @@ form {
     margin: 0;
 }
 
+
+
 .schedule-header {
     position: relative;
     color: #fff;
@@ -9,6 +11,29 @@ form {
     padding: 24px;
     padding-bottom: 64px;
 
+    &:hover {
+
+    }
+
+    &::after {
+         background: var(--primary-color);
+         opacity: .8;
+         z-index: -1;
+     }
+
+    &__title {
+         font-size: 36px;
+         padding: 0;
+         margin: 0;
+         font-weight: 400;
+     }
+
+     &__subtitle {
+          font-weight: 300;
+          padding: 0;
+          margin: 0;
+          font-size: 20px;
+     }
 }
 
 .schedule-header::before, .schedule-header::after {
@@ -24,26 +49,6 @@ form {
     background: url('/images/schedule-bg.png') no-repeat center center;
     background-size: cover;
     z-index: -2;
-}
-
-.schedule-header::after {
-    background: var(--primary-color);
-    opacity: .8;
-    z-index: -1;
-}
-
-.schedule-header__title {
-    font-size: 36px;
-    padding: 0;
-    margin: 0;
-    font-weight: 400;
-}
-
-.schedule-header__subtitle {
-    font-weight: 300;
-    padding: 0;
-    margin: 0;
-    font-size: 20px;
 }
 
 .button {
