@@ -35,7 +35,7 @@ Model::init($dbh);
 $auth = new Auth(
     $config['services']['vk']['clientId'],
     $config['services']['vk']['clientSecret'],
-    'http://localhost:8090/user/auth/vk'
+    'http://localhost:8090/oauth/vk'
 );
 $template = new Template();
 $template->setLayout('main'); // layout = ../templates/layouts/main.php

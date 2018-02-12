@@ -35,6 +35,51 @@ $router->get('/sign-in', function ($req) use ($app) {
 $router->get('/sign-up', function () use ($app) {
     return $app->templating->renderWithLayout('sign_up');
 });
+$router->get('/oauth/vk', function (Request $req, Response $res) use ($app) {
+    try {
+        $token = $app->auth->getToken($req->params['code']);
+        $api = new \ATehnix\VkClient\Client();
+        $api->setDefaultToken($token);
+        $request = new \ATehnix\VkClient\Requests\Request('getProfiles', ['fields' => 'photo,nickname']);
+        ['response' => [$vkUser]] = $api->send($request);
+        $user = User::findOne(['vkId' => $vkUser['id']]);
+        if ($user) {
+            $token = new AuthToken();
+            $token->generate();
+            $token->user = $user->id;
+            $token->dateUntil = (new DateTime())->modify("+ 1 month");
+            $token->save();
+
+            $res->setCookie(User::AUTH_COOKIE, $token->token);
+
+            return $res->redirect("/user/?id={$user->id}");
+        } else {
+            $user = new User();
+            $user->firstName = $vkUser['first_name'];
+            $user->lastName = $vkUser['last_name'];
+            $user->avatar = $vkUser['photo'];
+            $user->vkId = $vkUser['id'];
+
+            $user->save();
+
+            $token = new AuthToken();
+            $token->generate();
+            $token->user = $user->id;
+            $token->dateUntil = (new DateTime())->modify("+ 1 month");
+            $token->save();
+
+            $res->setCookie(User::AUTH_COOKIE, $token->token);
+
+            return $res->redirect("/user/?id={$user->id}");
+
+        }
+    } catch (\ATehnix\VkClient\Exceptions\VkException $error) {
+        var_dump($error);
+        return $app->templating->renderWithLayout('sign_in', ['errors' => ['Ошибка авторизации ВКонтакте']]);
+    }
+
+    return $app->templating->renderWithLayout('sign_up');
+});
 
 $router->post('/sign-up', function (Request $req, Response $res) use ($app) {
 

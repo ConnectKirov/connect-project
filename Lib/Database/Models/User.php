@@ -26,7 +26,8 @@ class User extends Model {
     public $role = "USER";
     public $createdAt;
     public $updatedAt;
-    private $password;
+    public $vkId;
+    public $password;
     const AUTH_COOKIE = "COOKIE_TOKEN";
 
     public function fullName(): string {
