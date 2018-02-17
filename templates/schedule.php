@@ -6,16 +6,16 @@
 <?=$this->renderInclude('includes/header');?>
 <div class="schedule">
     <div class="schedule-header">
-        <div class="button schedule_add">
-            Записаться
-        </div>
         <h2 class="schedule-header__title">
             <?=$this->getLocaleDate($timefrom)?>
-        </h2>
 
-        <p class="schedule-header__subtitle">
-            <?=$this->getLocaleTimeAgo($timefrom)?>
-        </p>
+            <p class="schedule-header__subtitle">
+                <?=$this->getLocaleTimeAgo($timefrom)?>
+            </p>
+        </h2>
+        <a href="#" class="button button--accent">
+            Записаться
+        </a>
     </div>
     <div class="schedule-table">
         <div class="schedule-table__numbers">

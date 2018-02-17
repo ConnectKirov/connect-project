@@ -1,10 +1,15 @@
 /*@import "schedule.css";*/
-@import "messages";
+@import "elements.less";
 
 
 :root {
   --primary-color: #1E79FA;
-  --accent-color: #ffea00;
+  --accent-color: #fdd835;
+  --header-height: 64px;
+}
+
+html {
+  height: 100%;
 }
 
 body {
@@ -14,6 +19,7 @@ body {
   padding-top: 64px;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 
@@ -39,7 +45,7 @@ body {
   flex-direction: column;
 }
 .header {
-  height: 64px;
+  height: var(--header-height);
   background-color: var(--primary-color);
   color: #fff;
   padding: 0 24px;
@@ -284,14 +290,6 @@ body {
   flex-grow: 0;
 }
 
-
-.brand {
-  color: #fff;
-  text-decoration: none;
-  font-size: 22px;
-  font-weight: 500;
-}
-
 a {
   text-decoration: none;
 }
@@ -315,14 +313,3 @@ a {
   width: 48px;
   margin-right: 16px;
 }
-
-.header-links {
-
-}
-.header-links a {
-  display: inline-block;
-  margin: 0 16px;
-  color: #ffffff;
-  text-decoration: none;
-}
-

@@ -1,0 +1,130 @@
+.messages {
+
+}
+
+.message {
+    background: #eee;
+    padding: 16px;
+    font-weight: 500;
+    &--error {
+        background: #ffebee;
+        color: #f44336;
+    }
+}
+
+.header {
+    height: 64px;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 0;
+    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    &--transparent {
+        background: transparent;
+    }
+
+}
+
+
+.header-links {
+    &__link {
+        display: inline-block;
+        margin: 0 16px;
+        color: #ffffff;
+        text-decoration: none;
+    }
+}
+
+
+.link-brand {
+    color: #fff;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.page {
+    min-height: calc(100vh - var(--header-height));
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.heading {
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.input {
+    padding: 8px;
+    background: #ffffff;
+    border: 0;
+    outline: 0;
+    border-radius: 2px;
+    border-bottom: 2px #eee solid;
+    width: 256px;
+    margin-bottom: 8px;
+    &:focus {
+        border-bottom-color: var(--primary-color);
+    }
+}
+
+.button {
+    &, &:hover, &:active, &:focus {
+        border: 0;
+        outline: 0;
+    }
+    &:hover {
+        opacity: .8;
+    }
+    padding: 0 0.8em;
+    background-color: #ffffff;
+    border-radius: 2px;
+    font-size: 14px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    color: #212121;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    &--primary {
+        background-color: var(--primary-color);
+        color: #fff;
+    }
+
+    &--accent {
+        background-color: var(--accent-color);
+        color: #fff;
+    }
+
+    &--vk {
+        background-color: #547093;
+        color: #ffffff;
+    }
+
+    i {
+        margin-right: 6px;
+    }
+}
+
+.input-container {
+    &__label {
+
+    }
+    &__input {
+
+    }
+}

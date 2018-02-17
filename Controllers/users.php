@@ -41,7 +41,7 @@ $router->get('/oauth/vk', function (Request $req, Response $res) use ($app) {
         $api = new \ATehnix\VkClient\Client();
         $api->setDefaultToken($token);
         $request = new \ATehnix\VkClient\Requests\Request('getProfiles', ['fields' => 'photo,nickname']);
-        ['response' => [$vkUser]] = $api->send($request);
+        ['response' => [$vkUser]] = $api->send($request); // ['response' => [ [ 'first_name' => 'John' ] ]
         $user = User::findOne(['vkId' => $vkUser['id']]);
         if ($user) {
             $token = new AuthToken();
@@ -77,8 +77,6 @@ $router->get('/oauth/vk', function (Request $req, Response $res) use ($app) {
         var_dump($error);
         return $app->templating->renderWithLayout('sign_in', ['errors' => ['Ошибка авторизации ВКонтакте']]);
     }
-
-    return $app->templating->renderWithLayout('sign_up');
 });
 
 $router->post('/sign-up', function (Request $req, Response $res) use ($app) {
@@ -88,8 +86,6 @@ $router->post('/sign-up', function (Request $req, Response $res) use ($app) {
     $user->setPassword($req->body['password']);
     $user->firstName = $req->body['firstName'];
     $user->save();
-
-    return $res->json($user);
 
     return $res->redirect("/user/?id={$user->id}");
 });
