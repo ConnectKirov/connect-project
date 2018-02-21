@@ -9,7 +9,7 @@ class Template {
     public function setLayout(string $name) {
         $this->layout = $this->getPath('layouts/' . $name);
     }
-    
+
     public function setDefaultVars(array $vars) {
         $this->defaultVars = $vars;
     }
@@ -52,26 +52,19 @@ class Template {
     /**
      * Составление строки класса из переданного массива
      *
-     * @param array ...$args
+     * @param array $classes
      * @return string
      */
-    public function cs(...$args) {
-        $classes = '';
-        foreach ($args as $arg) {
-            if (is_string($arg)) {
-                $classes .= $arg . ' ';
-            }
-            if (is_array($arg)) {
-                foreach ($arg as $key => $value) {
-                    if (is_numeric($key)) {
-                        $classes .= $value . ' ';
-                    } elseif ($value) {
-                        $classes .= $key . ' ';
-                    }
-                }
+    public function cs(array $classes): string {
+        $classname = '';
+        foreach ($classes as $key => $value) {
+            if (is_numeric($key)) {
+                $classname .= $value . ' ';
+            } elseif ($value) {
+                $classname .= $key . ' ';
             }
         }
-        return $classes;
+        return $classname;
     }
 
     public function getLocaleDate($date) {

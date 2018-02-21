@@ -6,7 +6,8 @@
 
 ?>
 <link rel="stylesheet" href="<?=$this->getAssetUrl('/styles/header.css')?>">
-<header class="<?=$this->cs('header', [
+<header class="<?=$this->cs([
+        'header',
         'header--transparent' => @$transparent,
 ])?>">
     <div>
