@@ -1,9 +1,9 @@
 <?php
 /**
- * @var $this Template
+ * @var $this \App\Lib\Template
  */
 ?>
-<link rel="stylesheet" href="<?= $this->getFile('/styles/sign-in.css')?>">
+<link rel="stylesheet" href="<?= $this->getAssetUrl('/styles/sign-in.css')?>">
 <?= $this->renderInclude('includes/header') ?>
 <main class="container">
     <section class="sign-in page">

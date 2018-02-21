@@ -128,6 +128,11 @@ class Model implements \JsonSerializable {
         $sth->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, static::class);
 
         $res = $sth->fetch();
+
+        if (method_exists($res, 'afterInit')) {
+            $res->afterInit();
+        }
+
         return $res ? $res : null;
     }
 

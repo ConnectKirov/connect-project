@@ -13,7 +13,7 @@ $router->get('/users', function () use ($app) {
     ]);
 });
 
-$router->get('/user', function (Request $req, Response $res) use ($app) {
+$router->get('/profile', function (Request $req, Response $res) use ($app) {
     $user = User::findOne($req->params);
 
     if ($user) {
@@ -52,7 +52,7 @@ $router->get('/oauth/vk', function (Request $req, Response $res) use ($app) {
 
             $res->setCookie(User::AUTH_COOKIE, $token->token);
 
-            return $res->redirect("/user/?id={$user->id}");
+            return $res->redirect("/profile/?id={$user->id}");
         } else {
             $user = new User();
             $user->firstName = $vkUser['first_name'];
@@ -70,7 +70,7 @@ $router->get('/oauth/vk', function (Request $req, Response $res) use ($app) {
 
             $res->setCookie(User::AUTH_COOKIE, $token->token);
 
-            return $res->redirect("/user/?id={$user->id}");
+            return $res->redirect("/profile/?id={$user->id}");
 
         }
     } catch (\ATehnix\VkClient\Exceptions\VkException $error) {

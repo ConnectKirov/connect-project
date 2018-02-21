@@ -4,9 +4,14 @@ namespace App\Lib;
 
 class Template {
     private $layout;
+    private $defaultVars = [];
 
     public function setLayout(string $name) {
         $this->layout = $this->getPath('layouts/' . $name);
+    }
+    
+    public function setDefaultVars(array $vars) {
+        $this->defaultVars = $vars;
     }
 
     /**
@@ -24,6 +29,7 @@ class Template {
         if (func_num_args() > 1) {
             extract(func_get_arg(1));
         }
+        extract($this->defaultVars);
         // вставляем шаблон, в котором будут доступны преобразованные переменные
         include func_get_arg(0);
         // возвращаем содержимое буфера вывода
@@ -105,7 +111,7 @@ class Template {
         }
     }
 
-    public function getFile($url) {
+    public function getAssetUrl($url) {
         return $url . '?' . filemtime($_SERVER['DOCUMENT_ROOT'] . $url);
     }
 

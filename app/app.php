@@ -44,6 +44,12 @@ $app->setVkAuth($auth);
 
 $router = new Router();
 
+$router->before(function (Request $req) use ($app) {
+    $user = User::fromRequest($req, false);
+    $app->setUser($user);
+    $app->templating->setDefaultVars([ 'currentUser' => $user ]);
+});
+
 // все роуты, связанные с пользователями, кладем сюда
 include '../Controllers/users.php';
 
@@ -85,7 +91,7 @@ $router->put('/api/schedule', function (Request $req, Response $res) use ($app) 
     $schedule->user = $user->id;
     $res->status(201);
 
-    return $res->json();
+    return $res->json([]);
 });
 
 $router->get('/schedule', function () use ($app) {

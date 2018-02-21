@@ -77,5 +77,9 @@ class Router {
         // Вызываем обработчик, который соответствует текущему пути в массиве $this->routes
         echo call_user_func($func, $this->req, $this->res);
     }
+
+    public function before(callable $callback) {
+        call_user_func($callback, $this->req, $this->res);
+    }
 }
 

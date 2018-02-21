@@ -11,6 +11,6 @@ class Request {
 
 
     public function getCookie($name) {
-        return $this->cookies[$name];
+        return $this->cookies[$name] ?? null;
     }
 }

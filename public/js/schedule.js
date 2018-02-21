@@ -1,3 +1,5 @@
+"use strict";
+
 $.get('/api/schedule', {
     'date': new Date()
 }).then((data) => {

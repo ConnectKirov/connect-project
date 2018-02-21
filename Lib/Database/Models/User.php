@@ -42,13 +42,21 @@ class User extends Model {
         return password_verify($password, $this->password);
     }
 
-    public static function fromRequest(Request $req) {
-        $token = AuthToken::findOne([ 'token' => $req->getCookie(User::AUTH_COOKIE)]);
+    public static function fromRequest(Request $req, bool $hasError = true): ?User {
+        $token = AuthToken::findOne(['token' => $req->getCookie(User::AUTH_COOKIE)]);
         if (!$token) {
-            throw new \HttpException('Token now found');
+            if ($hasError) {
+                throw new \Error('Token now found');
+            } else {
+                return null;
+            }
         }
         if ($token->dateUntil < new DateTime()) {
-            throw new \HttpException('Token expried');
+            if ($hasError) {
+                throw new \Error('Token expried');
+            } else {
+                return null;
+            }
         }
         return User::findOne($token->user);
     }

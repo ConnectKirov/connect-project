@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $this Template
+ * @var $this \App\Lib\Template
  */
 ?>
 <?=$this->renderInclude('includes/header');?>

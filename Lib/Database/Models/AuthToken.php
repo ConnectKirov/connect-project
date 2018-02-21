@@ -27,4 +27,8 @@ class AuthToken extends Model {
     protected function beforeSave() {
         $this->dateUntil = $this->dateUntil->format(MYSQL_DATETIME_FORMAT);
     }
+
+    public function afterInit() {
+        $this->dateUntil = \DateTime::createFromFormat(MYSQL_DATETIME_FORMAT, $this->dateUntil);
+    }
 }
